@@ -130,11 +130,11 @@ function App() {
                     <h3 className="text-xl mb-4 font-serif">Model Insights</h3>
                     <div className="flex justify-between mb-2">
                       <span className="text-secondaryText">Fraud Probability</span>
-                      <span className="font-medium">{(singleResult.fraud_probability * 100).toFixed(2)}%</span>
+                      <span className="font-medium">{(singleResult.fraud_probability).toFixed(2)}%</span>
                     </div>
                     <div className="flex justify-between mb-4">
                       <span className="text-secondaryText">Anomaly Score</span>
-                      <span className="font-medium">{(singleResult.anomaly_score * 100).toFixed(2)}%</span>
+                      <span className="font-medium">{(singleResult.anomaly_score).toFixed(2)}%</span>
                     </div>
                     
                     <h4 className="font-medium mt-6 mb-2 text-red-800">Factors Increasing Risk</h4>
@@ -250,8 +250,8 @@ function App() {
                               {r.assessment?.risk_level}
                             </span>
                           </td>
-                          <td className="p-4">{(r.assessment?.fraud_probability * 100).toFixed(1)}%</td>
-                          <td className="p-4">{(r.assessment?.anomaly_score * 100).toFixed(1)}%</td>
+                          <td className="p-4">{(r.assessment?.fraud_probability).toFixed(1)}%</td>
+                          <td className="p-4">{(r.assessment?.anomaly_score).toFixed(1)}%</td>
                         </tr>
                       ))}
                     </tbody>
