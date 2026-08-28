@@ -16,9 +16,8 @@ RUN apt-get update \
 # Copy requirements
 COPY backend/requirements.txt .
 
-# Since we don't have a physical requirements.txt yet, we'll write the pip install command directly.
-# But best practice is generating one. For this Dockerfile, we'll install directly:
-RUN pip install --no-cache-dir fastapi uvicorn pandas numpy scikit-learn xgboost joblib pydantic pydantic-settings
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy backend source
 COPY backend/ ./backend/
