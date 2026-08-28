@@ -221,9 +221,9 @@ function App() {
                         className="border border-border rounded p-1 text-sm bg-white"
                       >
                         <option value="All">All Transactions</option>
-                        <option value="High">High Risk Only</option>
-                        <option value="Medium">Medium Risk Only</option>
-                        <option value="Low">Low Risk Only</option>
+                        <option value="HIGH">High Risk Only</option>
+                        <option value="MEDIUM">Medium Risk Only</option>
+                        <option value="LOW">Low Risk Only</option>
                       </select>
                     </div>
                   </div>
@@ -239,29 +239,29 @@ function App() {
                     </thead >
                     <tbody>
                       {batchResult.results
-                        .filter(r => filterLevel === 'All' || r.risk_level === filterLevel)
+                        .filter(r => filterLevel === 'All' || r.assessment?.risk_level === filterLevel)
                         .slice(0, 100)
                         .map((r, idx) => (
                         <tr key={idx} className="border-t border-border">
-                          <td className="p-4">{r.index}</td>
-                          <td className="p-4">{r.risk_score.toFixed(1)}</td>
+                          <td className="p-4">{idx + 1}</td>
+                          <td className="p-4">{r.assessment?.risk_score?.toFixed(1)}</td>
                           <td className="p-4">
-                            <span className={`px-2 py-1 rounded text-sm ${r.risk_level === 'High' ? 'bg-red-100 text-red-800' : r.risk_level === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>
-                              {r.risk_level}
+                            <span className={`px-2 py-1 rounded text-sm ${r.assessment?.risk_level === 'HIGH' ? 'bg-red-100 text-red-800' : r.assessment?.risk_level === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>
+                              {r.assessment?.risk_level}
                             </span>
                           </td>
-                          <td className="p-4">{(r.fraud_probability * 100).toFixed(1)}%</td>
-                          <td className="p-4">{(r.anomaly_score * 100).toFixed(1)}%</td>
+                          <td className="p-4">{(r.assessment?.fraud_probability * 100).toFixed(1)}%</td>
+                          <td className="p-4">{(r.assessment?.anomaly_score * 100).toFixed(1)}%</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-                  {batchResult.results.filter(r => filterLevel === 'All' || r.risk_level === filterLevel).length > 100 && (
+                  {batchResult.results.filter(r => filterLevel === 'All' || r.assessment?.risk_level === filterLevel).length > 100 && (
                     <div className="p-4 text-center text-secondaryText bg-gray-50 border-t border-border">
                       Showing first 100 {filterLevel !== 'All' ? filterLevel.toLowerCase() + ' risk' : ''} results.
                     </div>
                   )}
-                  {batchResult.results.filter(r => filterLevel === 'All' || r.risk_level === filterLevel).length === 0 && (
+                  {batchResult.results.filter(r => filterLevel === 'All' || r.assessment?.risk_level === filterLevel).length === 0 && (
                     <div className="p-8 text-center text-secondaryText bg-white border-t border-border">
                       No transactions match the selected filter.
                     </div>
