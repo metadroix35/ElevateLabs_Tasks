@@ -31,10 +31,21 @@ export const getMetrics = () => api.get('/model/metrics');
 
 export const predictSingle = (data: any) => api.post<RiskAssessment>('/analyze', data);
 
-export const predictBatch = (file: File) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  return api.post<BatchRiskAssessment>('/analyze-batch', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+export const predictBatch = async (file: File) => {
+  const text = await file.text();
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+  
+  const transactions = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const values = lines[i].split(',');
+    const tx: any = {};
+    headers.forEach((h, idx) => {
+      tx[h] = parseFloat(values[idx]);
+    });
+    transactions.push(tx);
+  }
+  
+  return api.post<BatchRiskAssessment>('/analyze-batch', transactions);
 };
