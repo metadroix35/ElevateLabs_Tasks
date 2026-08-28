@@ -34,6 +34,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/health")
+async def health_check():
+    """Lightweight endpoint for cron jobs to keep the server awake."""
+    return {"status": "ok", "message": "Server is awake"}
+
 def analyze_transaction(transaction: TransactionInput) -> RiskAssessment:
     if 'xgb' not in models or 'if_model' not in models or 'scaler' not in models:
         raise HTTPException(status_code=503, detail="Models not loaded")
