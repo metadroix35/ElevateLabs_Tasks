@@ -29,12 +29,12 @@ export interface BatchRiskAssessment {
 export const getHealth = () => api.get('/health');
 export const getMetrics = () => api.get('/model/metrics');
 
-export const predictSingle = (data: any) => api.post<RiskAssessment>('/predict', data);
+export const predictSingle = (data: any) => api.post<RiskAssessment>('/analyze', data);
 
 export const predictBatch = (file: File) => {
   const formData = new FormData();
   formData.append('file', file);
-  return api.post<BatchRiskAssessment>('/predict/batch', formData, {
+  return api.post<BatchRiskAssessment>('/analyze-batch', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 };
