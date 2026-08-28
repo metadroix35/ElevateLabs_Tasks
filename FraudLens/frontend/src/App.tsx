@@ -139,7 +139,7 @@ function App() {
                     
                     <h4 className="font-medium mt-6 mb-2 text-red-800">Factors Increasing Risk</h4>
                     <ul className="space-y-2 mb-4">
-                      {singleResult.contributing_factors.filter(f => f.direction.includes('Increase')).map(f => (
+                      {singleResult.contributing_factors.filter(f => f.direction.toUpperCase().includes('INCREASE')).map(f => (
                         <li key={f.feature} className="flex justify-between items-center p-2 bg-red-50 rounded border border-red-100">
                           <span>{DUMMY_FEATURE_NAMES[f.feature] || f.feature}</span>
                           <span className="text-red-700 font-medium text-sm">
@@ -147,14 +147,14 @@ function App() {
                           </span>
                         </li>
                       ))}
-                      {singleResult.contributing_factors.filter(f => f.direction.includes('Increase')).length === 0 && (
+                      {singleResult.contributing_factors.filter(f => f.direction.toUpperCase().includes('INCREASE')).length === 0 && (
                         <li className="text-sm text-secondaryText italic p-2">None</li>
                       )}
                     </ul>
 
                     <h4 className="font-medium mt-4 mb-2 text-green-800">Factors Decreasing Risk</h4>
                     <ul className="space-y-2">
-                      {singleResult.contributing_factors.filter(f => f.direction.includes('Decrease')).map(f => (
+                      {singleResult.contributing_factors.filter(f => f.direction.toUpperCase().includes('DECREASE')).map(f => (
                         <li key={f.feature} className="flex justify-between items-center p-2 bg-green-50 rounded border border-green-100">
                           <span>{DUMMY_FEATURE_NAMES[f.feature] || f.feature}</span>
                           <span className="text-green-700 font-medium text-sm">
@@ -162,7 +162,7 @@ function App() {
                           </span>
                         </li>
                       ))}
-                      {singleResult.contributing_factors.filter(f => f.direction.includes('Decrease')).length === 0 && (
+                      {singleResult.contributing_factors.filter(f => f.direction.toUpperCase().includes('DECREASE')).length === 0 && (
                         <li className="text-sm text-secondaryText italic p-2">None</li>
                       )}
                     </ul>
