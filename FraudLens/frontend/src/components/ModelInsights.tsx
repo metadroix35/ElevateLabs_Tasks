@@ -47,7 +47,7 @@ export const ModelInsights: React.FC = () => {
             <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#66625D' }} />
             <YAxis tick={{ fontSize: 12, fill: '#66625D' }} domain={[0, 100]} />
             <Tooltip 
-              formatter={(value: number) => [`${value.toFixed(1)}%`, 'Score']}
+              formatter={(value: any) => [`${Number(value).toFixed(1)}%`, 'Score']}
               contentStyle={{ backgroundColor: '#1C1C1C', color: '#fff', border: 'none', borderRadius: '4px' }}
             />
             <Bar dataKey="value" fill="#161616" radius={[4, 4, 0, 0]} />
