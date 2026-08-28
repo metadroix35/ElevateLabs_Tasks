@@ -38,8 +38,9 @@ export const predictBatch = async (file: File) => {
   
   const transactions = [];
   for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-    const values = lines[i].split(',');
+    const line = lines[i].trim();
+    if (!line) continue;
+    const values = line.split(',');
     const tx: any = {};
     headers.forEach((h, idx) => {
       tx[h] = parseFloat(values[idx]);
