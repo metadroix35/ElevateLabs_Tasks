@@ -76,7 +76,7 @@ export const ModelInsights: React.FC = () => {
                 label={{ value: 'True Positive Rate', angle: -90, position: 'left', fill: '#66625D', fontSize: 12 }} 
               />
               <Tooltip 
-                formatter={(value: any, name: string) => [Number(value).toFixed(3), name === 'tpr' ? 'TPR' : 'FPR']}
+                formatter={(value: any, name: any) => [Number(value).toFixed(3), name === 'tpr' ? 'TPR' : 'FPR']}
                 labelFormatter={(label) => `FPR: ${Number(label).toFixed(3)}`}
                 contentStyle={{ backgroundColor: '#1C1C1C', color: '#fff', border: 'none', borderRadius: '4px' }}
               />
