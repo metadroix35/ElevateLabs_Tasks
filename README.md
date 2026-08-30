@@ -175,12 +175,6 @@ cd ElevateLabs_Tasks/FraudLens
 # Run with Docker Compose
 docker-compose up --build
 ```
-
-**Access the application:**
-- 🌐 Frontend: http://localhost:80
-- 🔌 Backend API: http://localhost:8000
-- 📚 API Docs: http://localhost:8000/docs
-
 #### **Option 2: Local Development**
 
 **Backend Setup:**
