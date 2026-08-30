@@ -22,16 +22,26 @@ def train_xgboost(X_train, y_train, X_test, y_test):
     
     model.fit(X_train, y_train)
     
+    from sklearn.metrics import roc_curve
+    
     # Evaluate
     y_pred = model.predict(X_test)
     y_prob = model.predict_proba(X_test)[:, 1]
+    
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    # Subsample for frontend performance if too many points, taking max 100 points
+    step = max(1, len(fpr) // 100)
+    roc_data = [{'fpr': float(f), 'tpr': float(t)} for f, t in zip(fpr[::step], tpr[::step])]
+    if roc_data[-1]['fpr'] != 1.0 or roc_data[-1]['tpr'] != 1.0:
+        roc_data.append({'fpr': 1.0, 'tpr': 1.0})
     
     metrics = {
         'precision': float(precision_score(y_test, y_pred)),
         'recall': float(recall_score(y_test, y_pred)),
         'f1': float(f1_score(y_test, y_pred)),
         'roc_auc': float(roc_auc_score(y_test, y_prob)),
-        'pr_auc': float(average_precision_score(y_test, y_prob))
+        'pr_auc': float(average_precision_score(y_test, y_prob)),
+        'roc_curve': roc_data
     }
     
     print("XGBoost Metrics:", metrics)
