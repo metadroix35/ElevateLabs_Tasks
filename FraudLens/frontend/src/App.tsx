@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { predictSingle, predictBatch } from './api/client';
 import type { RiskAssessment, BatchRiskAssessment } from './api/client';
 import RiskScore from './components/RiskScore';
+import { ModelInsights } from './components/ModelInsights';
 
 const DUMMY_FEATURE_NAMES: Record<string, string> = {
   V1: "Merchant Category Score",
@@ -35,7 +36,7 @@ const DUMMY_FEATURE_NAMES: Record<string, string> = {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'single' | 'batch'>('single');
+  const [activeTab, setActiveTab] = useState<'single' | 'batch' | 'model'>('model');
 
   // Single transaction state
   const [txData, setTxData] = useState<any>({
@@ -94,6 +95,7 @@ function App() {
           <nav className="flex gap-2 bg-black/20 p-1 rounded-lg border border-white/5">
             <button onClick={() => setActiveTab('single')} className={`px-5 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'single' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>Analyze Transaction</button>
             <button onClick={() => setActiveTab('batch')} className={`px-5 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'batch' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>Batch Analysis</button>
+            <button onClick={() => setActiveTab('model')} className={`px-5 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'model' ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>Model Insights & ROC</button>
           </nav>
         </div>
       </header>
@@ -324,6 +326,12 @@ function App() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {activeTab === 'model' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <ModelInsights />
           </div>
         )}
       </main>
