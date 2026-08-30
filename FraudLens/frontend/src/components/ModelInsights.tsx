@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMetrics } from '../services/api';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine, Cell } from 'recharts';
 
 export const ModelInsights: React.FC = () => {
   const [metrics, setMetrics] = useState<any>(null);
@@ -58,8 +58,8 @@ export const ModelInsights: React.FC = () => {
                 contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', backdropFilter: 'blur(8px)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
               />
               <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                {chartData.map((entry, index) => (
-                  <cell key={`cell-${index}`} fill={index === 3 ? '#3b82f6' : '#475569'} />
+                {chartData.map((_, index) => (
+                  <Cell key={`cell-${index}`} fill={index === 3 ? '#3b82f6' : '#475569'} />
                 ))}
               </Bar>
             </BarChart>
