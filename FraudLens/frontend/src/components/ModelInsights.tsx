@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMetrics } from '../services/api';
+import { getMetrics } from '../api/client';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine, Cell } from 'recharts';
 
 export const ModelInsights: React.FC = () => {
@@ -10,10 +10,10 @@ export const ModelInsights: React.FC = () => {
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const data = await getMetrics();
-        setMetrics(data);
+        const response = await getMetrics();
+        setMetrics(response.data);
       } catch (err: any) {
-        setError(err.message);
+        setError(err.message || 'Failed to fetch metrics');
       } finally {
         setLoading(false);
       }
